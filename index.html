@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="dark" />
+    <meta name="theme-color" content="#050709" />
+    <meta
+      name="description"
+      content="A live instrument for a changing planet: earthquakes, wildfires, storms, floods and eruptions as they are recorded."
+    />
+    <title>earth is doomed</title>
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='12' fill='none' stroke='%23d9a24c' stroke-width='2'/%3E%3Ccircle cx='16' cy='16' r='3' fill='%23d9a24c'/%3E%3C/svg%3E"
+    />
+  </head>
+  <body>
+    <a class="skip-link" href="#rail">Skip to the country list</a>
+
+    <main id="app">
+      <section id="descent" aria-label="Live globe of natural events">
+        <div class="pin" id="pin">
+          <div
+            class="globe-wrap"
+            id="globe-wrap"
+            tabindex="0"
+            role="application"
+            aria-roledescription="interactive globe"
+            aria-label="Globe of recent natural events. Drag or use the arrow keys to turn it, plus and minus to zoom. Event lists are in the Countries tab."
+          >
+            <canvas id="globe-canvas"></canvas>
+          </div>
+
+          <div class="left-col">
+            <header class="masthead" id="masthead">
+              <p class="wordmark">earth is doomed</p>
+              <div class="counter" id="counter">
+                <div class="counter-num mono" id="counter-num">&nbsp;</div>
+                <div class="counter-cap">
+                  <span id="counter-label">listening to the planet&hellip;</span>
+                  <span class="counter-aside" aria-hidden="true">the earth is fucked</span>
+                </div>
+              </div>
+            </header>
+            <aside class="rail" id="rail" aria-label="Countries and data sources" data-open="false"></aside>
+          </div>
+
+          <div class="right-col">
+            <nav class="legend" id="legend" aria-label="Filter by event type"></nav>
+            <div class="right-slot">
+              <div class="captions" id="captions">
+                <div class="caption" data-caption="0">
+                  <p>
+                    Every point is something the planet did recently: an earthquake, a fire, a storm, a flood, an
+                    eruption. Recorded by USGS, NASA&nbsp;EONET and GDACS.
+                  </p>
+                  <p class="caption-dim">Scroll to descend. Drag to look around.</p>
+                </div>
+                <div class="caption" data-caption="1" id="caption-country" aria-live="polite"></div>
+              </div>
+              <aside class="panel" id="panel" aria-label="Event detail" data-open="false" inert></aside>
+            </div>
+          </div>
+
+          <div class="tooltip" id="tooltip" role="tooltip" hidden></div>
+
+          <div class="timeline" id="timeline" role="group" aria-label="Timeline"></div>
+
+          <div class="scroll-hint mono" id="scroll-hint" aria-hidden="true">scroll &darr;</div>
+
+          <div class="error-state" id="error-state" role="alert" hidden></div>
+
+          <p class="sr-only" id="sr-summary" aria-live="polite"></p>
+        </div>
+      </section>
+
+      <section id="about" class="about" aria-labelledby="about-title">
+        <div class="about-inner">
+          <h2 id="about-title">About this instrument</h2>
+          <p>
+            This page listens to three public feeds and draws what they report. It does not predict anything,
+            and it does not rank suffering. Severity here is a rough, source-derived number used only to decide
+            what is drawn larger.
+          </p>
+          <div class="about-grid">
+            <div>
+              <h3>Sources <span class="dim">(live status in the Sources tab)</span></h3>
+              <ul>
+                <li>
+                  <a href="https://earthquake.usgs.gov/earthquakes/feed/v1.0/geojson.php" target="_blank" rel="noopener">USGS earthquake feeds</a>
+                  and the <a href="https://earthquake.usgs.gov/fdsnws/event/1/" target="_blank" rel="noopener">FDSN event service</a>
+                </li>
+                <li><a href="https://eonet.gsfc.nasa.gov/docs/v3" target="_blank" rel="noopener">NASA EONET v3</a></li>
+                <li><a href="https://www.gdacs.org/" target="_blank" rel="noopener">GDACS</a> (alert levels)</li>
+                <li>
+                  <a href="https://nasa-gibs.github.io/gibs-api-docs/" target="_blank" rel="noopener">NASA GIBS</a>
+                  VIIRS imagery and fire detections
+                </li>
+                <li><a href="https://www.naturalearthdata.com/" target="_blank" rel="noopener">Natural Earth</a> country borders</li>
+              </ul>
+            </div>
+            <div>
+              <h3>How to read it</h3>
+              <ul>
+                <li>Points fade over the 24 hours after an event ends.</li>
+                <li>Rings mark the most severe events in view.</li>
+                <li>History earthquakes are M4.5 and above; the live day includes smaller ones.</li>
+                <li>The same event reported by several sources is drawn once.</li>
+              </ul>
+            </div>
+            <div>
+              <h3>Limits</h3>
+              <ul>
+                <li>Sources lag, disagree and revise. Nothing here is official.</li>
+                <li>Satellite imagery is regional (about 250&nbsp;m to 1&nbsp;km per pixel), not street level.</li>
+                <li>Ocean events are labelled by the nearest country.</li>
+              </ul>
+            </div>
+          </div>
+          <p class="about-foot mono">earth is doomed &middot; a live instrument, not a forecast</p>
+        </div>
+      </section>
+    </main>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
